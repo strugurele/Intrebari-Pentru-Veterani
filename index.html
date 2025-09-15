@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kahoot Biblie - Veterani</title>
+<style>
+  body {
+    font-family: 'Georgia', serif;
+    background: url('https://i.ibb.co/FnL6smD/parchment.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #4B2E1E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background-color: rgba(255, 248, 220, 0.9);
+    padding: 30px 50px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    max-width: 800px;
+  }
+  h1 {
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', serif;
+    font-size: 2em;
+  }
+  .answer-btn {
+    display: block;
+    margin: 10px auto;
+    width: 70%;
+    max-width: 400px;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #4B2E1E;
+    border-radius: 8px;
+    background-color: #FAF0E6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .answer-btn:hover {
+    background-color: #FFE4C4;
+  }
+  .correct {
+    background-color: #90EE90 !important;
+  }
+  .wrong {
+    background-color: #FF7F7F !important;
+  }
+  #score {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Kahoot Biblie - Veterani</h1>
+  <div id="quiz">
+    <p id="question"></p>
+    <div id="answers"></div>
+    <p id="score"></p>
+  </div>
+</div>
+
+<script>
+const quiz = [
+{question: "Cum se numea primul om creat de Dumnezeu?", answers: ["Avraam","Adam","Noe","Cain"], correct: 1},
+{question: "Cum se numea prima femeie creată de Dumnezeu?", answers: ["Eva","Sara","Lea","Rebeca"], correct: 0},
+{question: "Cine a construit arca pentru a supraviețui potopului?", answers: ["Moise","Noe","Avraam","Iosif"], correct: 1},
+{question: "Câte zile și nopți a plouat în timpul potopului?", answers: ["30","40","50","7"], correct: 1},
+{question: "Cine a fost tatăl lui Isaac?", answers: ["Iacov","Avraam","Ismael","Lot"], correct: 1},
+{question: "Cine l-a vândut pe Iosif ca sclav în Egipt?", answers: ["Frații lui","Egiptenii","Moise","Avraam"], correct: 0},
+{question: "Cine a primit cele Zece Porunci pe Muntele Sinai?", answers: ["Avraam","Moise","David","Solomon"], correct: 1},
+{question: "Cine a ucis pe Goliat?", answers: ["Saul","David","Samson","Iosua"], correct: 1},
+{question: "Cine a fost primul rege al Israelului?", answers: ["David","Saul","Solomon","Avraam"], correct: 1},
+{question: "Cine a construit Templul din Ierusalim?", answers: ["David","Solomon","Iosua","Moise"], correct: 1},
+{question: "Cine a fost profetul care a fost luat la cer într-un car de foc?", answers: ["Ilie","Elisei","Isaia","Ieremia"], correct: 0},
+{question: "Cine a fost tatăl lui Iacov și Esau?", answers: ["Avraam","Isaac","Noe","Iosif"], correct: 1},
+{question: "Cine a vândut piețele sale pentru a cumpăra câmpul cu mormânt pentru Sara?", answers: ["Avraam","Isaac","Iacov","David"], correct: 0},
+{question: "Care dintre fiii lui Iacov a fost vândut în Egipt?", answers: ["Ruben","Iosif","Iuda","Simeon"], correct: 1},
+{question: "Cine a fost mama lui Samuel?", answers: ["Ana","Elisabeta","Rebeca","Sara"], correct: 0},
+{question: "Cine a fost marele conducător care a condus israeliții în Țara Făgăduinței?", answers: ["Moise","Iosua","David","Saul"], correct: 1},
+{question: "Cine a făcut zidurile Ierihonului să cadă?", answers: ["Moise","Iosua","Samson","David"], correct: 1},
+{question: "Cine a fost cunoscut pentru puterea sa fizică extraordinară și pentru părul său lung?", answers: ["David","Samson","Goliat","Moise"], correct: 1},
+{question: "Cine a fost profetul care a vorbit despre „Servitorul Domnului”?", answers: ["Ieremia","Isaia","Ezechiel","Daniel"], correct: 1},
+{question: "Cine a fost prietenul lui David și fiul regelui Saul?", answers: ["Ionatan","Solomon","Abner","Moise"], correct: 0},
+{question: "Cine a fost regele cunoscut pentru înțelepciunea sa?", answers: ["David","Solomon","Saul","Iosua"], correct: 1},
+{question: "Cine a fost profetul aruncat în groapa cu lei?", answers: ["Daniel","Ezechiel","Ieremia","Isaia"], correct: 0},
+{question: "Cine a tradus Biblia în latină, cunoscut ca Vulgata?", answers: ["Augustin","Ieronim","Tertulian","Ambrozie"], correct: 1},
+{question: "Cine a predicat la Penticost și a convertit mii de oameni?", answers: ["Pavel","Petru","Ioan","Filip"], correct: 1},
+{question: "Cine a fost persecutorul creștinilor care a devenit apostol?", answers: ["Petru","Pavel","Ioan","Iacov"], correct: 1},
+{question: "Cine a fost apostolul iubit și autor al Evangheliei după Ioan?", answers: ["Petru","Ioan","Pavel","Iacov"], correct: 1},
+{question: "Cine a fost primul martir creștin?", answers: ["Ștefan","Pavel","Petru","Ioan"], correct: 0},
+{question: "Care este Evanghelia care începe cu „La început era Cuvântul”?", answers: ["Matei","Marcu","Luca","Ioan"], correct: 3},
+{question: "Cine a trădat pe Isus pentru 30 de arginți?", answers: ["Petru","Iuda Iscarioteanul","Ioan","Iacov"], correct: 1},
+{question: "Cine a fost guvernatorul roman care a condamnat pe Isus la crucificare?", answers: ["Irod","Pilat din Pont","Cezar","Tiberiu"], correct: 1},
+{question: "În ce oraș s-a născut Isus?", answers: ["Nazaret","Betleem","Ierusalim","Cana"], correct: 1},
+{question: "Cine a fost mama lui Isus?", answers: ["Maria","Elisabeta","Ana","Marta"], correct: 0},
+{question: "Cine a fost tatăl lui Ioan Botezătorul?", answers: ["Zaharia","Iosif","Simeon","Avraam"], correct: 0},
+{question: "Cine a întrebat „Doamne, cât de multe ori să iert pe fratele meu?”", answers: ["Petru","Ioan","Iacov","Pavel"], correct: 0},
+{question: "Cine a fost apostolul care a scris cele mai multe epistole?", answers: ["Petru","Pavel","Ioan","Iacov"], correct: 1},
+{question: "Cine a fost omul bogat care a întrebat „Ce trebuie să fac ca să moștenesc viața veșnică?”", answers: ["Nicodim","Tânărul bogat","Zacheu","Simeon"], correct: 1},
+{question: "Cine a fost tâlharul răstignit lângă Isus care a crezut în El?", answers: ["Baraba","Dismas","Gestas","Ioan"], correct: 1},
+{question: "În ce râu a fost botezat Isus?", answers: ["Nil","Iordan","Eufrat","Tigris"], correct: 1},
+{question: "Cine a mers pe apă ca să-l întâlnească pe Isus?", answers: ["Petru","Ioan","Iacov","Andrei"], correct: 0},
+{question: "Cine a fost primul împărat al Romei menționat în Noul Testament?", answers:
